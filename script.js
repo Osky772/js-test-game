@@ -1,9 +1,12 @@
 const container = document.getElementById("container");
 const box = document.getElementById("box");
-const howManyElements = 5; // level of hardness
-let countElements = 0; // for setInterval
+const elementsToDisplay = 5; // level of hardness
+let counterElements = 0; // for displayAnimals
+let elementsToFind = 3;
+let counterRandomElements = 0;
 let countFoundElements = 0;
-let chooseRightOnes = ["bird", "lion", "pinguin"]; // array of items to find
+let chooseRightOnes = []; // array of items to find
+let foundAnimals;
 const animals = [
     {
         icon: "🦁",
@@ -33,50 +36,68 @@ const animals = [
 
 function createAnimals() {
     const index = Math.floor(Math.random() * animals.length);
-    const animal = animals[index].icon;
+    const animalIcon = animals[index].icon;
     const animalId = animals[index].id;
     const animalElement = document.createElement("div");
     
     animalElement.classList.add("animal");
-    animalElement.textContent = animal;
+    animalElement.textContent = animalIcon;
     animalElement.dataset.id = animalId;
     animalElement.style.top = `${Math.random() * 90}%`; 
     animalElement.style.left = `${Math.random() * 90}%`;
 
-    animalElement.addEventListener("click", function() {
-        console.log(this.dataset.id);
-
-        // find element by it's is 
-        const isFound = chooseRightOnes.some(function(element){
-            return element === animalElement.dataset.id;
-        });
-
-        // if you found item then remove it
-        
-        if (isFound) {
-            countFoundElements += 1;
-            console.log(countFoundElements);
-            this.remove();
-            if (countFoundElements === chooseRightOnes.length) {
-                console.log('You are a winner!')
-            } else {
-                console.log('play...');
-            }
-        };
-
-    });
-
     container.prepend(animalElement);
 }
 
-let animalsInterval = setInterval(function(){
+function findElement() {
+    const elementId = this.dataset.id;
+
+    // find element by it's id 
+     const isFound = chooseRightOnes.some(function(element){
+        return element === elementId;
+     });
+
+    // if you found item then remove it
+    if (isFound) {
+        countFoundElements += 1;
+        console.log(countFoundElements);
+        this.remove();
+        if (countFoundElements === chooseRightOnes.length) {
+            console.log('You are a winner!')
+        } else {
+            console.log('play...');
+        }
+    };
+}
+
+function randomandomAnimals() {
+    const index = Math.floor(Math.random() * animals.length);
+    const animalId = animals[index].id;
+
+    chooseRightOnes.push(animalId);
+}
+
+let generateRandomAnimals = setInterval(function() {
+    randomandomAnimals();
+    counterRandomElements++;
+    if (counterRandomElements === elementsToFind) {
+        clearInterval(generateRandomAnimals);
+    }
+});
+
+let displayAnimals = setInterval(function() {
     createAnimals();
-    countElements++;
-    if (countElements === howManyElements) {    
-        clearInterval(animalsInterval);
-        console.log(document.querySelectorAll('.animal'));
+    counterElements++;
+
+    if (counterElements === elementsToDisplay) {    
+        clearInterval(displayAnimals);
+        foundAnimals = document.querySelectorAll('.animal');
+        
+        // If elements are loaded on page, then add to every element 'click' event with founction of finding correct element
+        foundAnimals.forEach(function(element){
+            console.log('el id', element.dataset.id)
+            element.addEventListener('click', findElement)
+        })
     }
 }, 50);
 
-
-console.log(document.querySelectorAll('.animal').length)
