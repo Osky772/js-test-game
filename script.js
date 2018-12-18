@@ -1,11 +1,11 @@
 const container = document.getElementById("container");
 const box = document.getElementById("box");
-const elementsToDisplay = 5; // level of hardness
+const toDisplay = 5; // level of hardness
 let counterElements = 0; // for displayAnimals
-let elementsToFind = 3;
+let toFind = 3;
 let counterRandomElements = 0;
 let countFoundElements = 0;
-let chooseRightOnes = []; // array of items to find
+let elementsToFind = []; // array of items to find
 let foundAnimals;
 const animals = [
     {
@@ -53,7 +53,7 @@ function findElement() {
     const elementId = this.dataset.id;
 
     // find element by it's id 
-     const isFound = chooseRightOnes.some(function(element){
+     const isFound = elementsToFind.some(function(element){
         return element === elementId;
      });
 
@@ -62,7 +62,7 @@ function findElement() {
         countFoundElements += 1;
         console.log(countFoundElements);
         this.remove();
-        if (countFoundElements === chooseRightOnes.length) {
+        if (countFoundElements === elementsToFind.length) {
             console.log('You are a winner!')
         } else {
             console.log('play...');
@@ -70,34 +70,43 @@ function findElement() {
     };
 }
 
-function randomandomAnimals() {
+function randomAnimals() {
     const index = Math.floor(Math.random() * animals.length);
     const animalId = animals[index].id;
 
-    chooseRightOnes.push(animalId);
-}
+    if (!elementsToFind.includes(animalId)) {
+        elementsToFind.push(animalId);
+    } else {
+        return;
+    }
+    console.log(elementsToFind);
+ }
+    
+randomAnimals()
 
-let generateRandomAnimals = setInterval(function() {
-    randomandomAnimals();
-    counterRandomElements++;
-    if (counterRandomElements === elementsToFind) {
+/* let generateRandomAnimals = setInterval(function() {
+    randomAnimals();
+    
+    if (elementsToFind.length === toFind) {
         clearInterval(generateRandomAnimals);
     }
-});
+    console.log(elementsToFind.length)
+}, 0);
+ */
+//console.log('arr',elementsToFind.length)
 
 let displayAnimals = setInterval(function() {
     createAnimals();
     counterElements++;
 
-    if (counterElements === elementsToDisplay) {    
+    if (counterElements === toDisplay) {    
         clearInterval(displayAnimals);
         foundAnimals = document.querySelectorAll('.animal');
         
         // If elements are loaded on page, then add to every element 'click' event with founction of finding correct element
         foundAnimals.forEach(function(element){
-            console.log('el id', element.dataset.id)
-            element.addEventListener('click', findElement)
+            element.addEventListener('click', findElement);
         })
     }
-}, 50);
+}, 30);
 
