@@ -69,10 +69,11 @@ function findElement() {
             allAnimals.forEach(removeFindingEvent);
         } else {
             console.log('play...');
-            console.log('when playing',foundAnimals);
-
+            console.log('find right one',foundAnimals);
         }
-    };
+    } else {
+        console.log('wrong')
+    }
 }
 
 function randomAnimals() {
@@ -107,18 +108,7 @@ function displayAnimals() {
     
     // If elements are loaded on page, then add to every element 'click' event with function of finding correct element
     allAnimals = document.querySelectorAll('.animal');
-    
-    let allAnimalsConverted = Array.prototype.slice.call(allAnimals);
-    elementsToFind.forEach(function(element){
-        allAnimalsConverted.push(element);
-    });
-
-    console.log('converted',allAnimalsConverted)
-    
     allAnimals.forEach(addFindingEvent);
-
-
-    console.log('all',allAnimals)
 }
 
 randomAnimals();
