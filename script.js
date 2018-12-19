@@ -76,21 +76,18 @@ function findElement() {
 }
 
 function randomAnimals() {
-    const index = Math.floor(Math.random() * animals.length);
-    const animalId = animals[index].id;
-
-    if (!elementsToFind.includes(animalId)) {
+    for (let i = 0; elementsToFind.length !== toFind; i++) {
+        const index = Math.floor(Math.random() * animals.length);
+        const animalId = animals[index].id;
         elementsToFind.push(animalId);
-    } else {
-        return;
     }
 }
 
-function generateRandomAnimals() {
+/* function generateRandomAnimals() {
     for (let i = 0; elementsToFind.length !== toFind; i++) {
         randomAnimals();
     }
-}
+} */
 
 //function for adding event on every displayed element
 function addFindingEvent(element) {
@@ -110,10 +107,21 @@ function displayAnimals() {
     
     // If elements are loaded on page, then add to every element 'click' event with function of finding correct element
     allAnimals = document.querySelectorAll('.animal');
+    
+    let allAnimalsConverted = Array.prototype.slice.call(allAnimals);
+    elementsToFind.forEach(function(element){
+        allAnimalsConverted.push(element);
+    });
+
+    console.log('converted',allAnimalsConverted)
+    
     allAnimals.forEach(addFindingEvent);
+
+
+    console.log('all',allAnimals)
 }
 
-generateRandomAnimals();
+randomAnimals();
 displayAnimals();
 
 console.log('tofind',elementsToFind);
