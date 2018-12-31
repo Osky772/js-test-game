@@ -16,6 +16,7 @@ html, body {
 .animal {
     position: absolute;
     font-size: 4rem;
+    padding: 0.4rem;
     top: -4rem;
     line-height: 1;
     left: calc(35%);
