@@ -1,3 +1,9 @@
+// App should have way to generate 4 random elements to pick up
+// App should have way to display these 4 elements to pick up on screen
+// App should have way to generate another random elements from 10 to 15 elements
+// App should have way to pick up only these elements that are meant to pick
+// App should have way to log alert after picked wrong element
+
 const container = document.getElementById("container");
 const box = document.getElementById("box");
 const toDisplay = 10; // level of hardness
