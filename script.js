@@ -74,13 +74,11 @@ function createRandomAnimals() {
         animalElement.style.left = `${Math.random() * 90}%`;
         container.prepend(animalElement);
     };
-
-    // If elements are loaded on page, then add to every element 'click' event with function of finding correct element
-    allAnimals = document.querySelectorAll('.animal');
-    allAnimals.forEach(addFindingEvent);
+    createKiller();
 }
 
 function createKiller() {
+    // push killer element to array in case for displaying killer once
     animals.push({
         icon: "🕷",
         id: "killer",
@@ -116,13 +114,19 @@ function findElement() {
         } else {
             console.log(`%c That's correct element!`, `background: lightgreen;`);
         }
+    } else if (elementId === "killer") {
+        allAnimals.forEach(removeFindingEvent);
+        console.log('%c YOU LOSE!!!',' background: black; color: red; font-size: 4rem;');
     } else {
         console.log(`%c WRONG!!!`, `background: red`);
     }
 }
-//function for adding event on every displayed element
-function addFindingEvent(element) {
-    element.addEventListener('click', findElement);
+function addFindingEvent() {
+    // If all elements are loaded on page, then add to every element 'click' event with function of finding correct element
+    allAnimals = document.querySelectorAll('.animal');
+    allAnimals.forEach(function(element) {
+        element.addEventListener('click', findElement);
+    });
 };
 //function for removing event on every displayed element
 function removeFindingEvent(element) {
@@ -131,8 +135,7 @@ function removeFindingEvent(element) {
 
 randomAnimals();
 createRandomAnimals();
-// Launch createKiller() after createRandomAnimals() in case that killer should display once on screen
-createKiller();
+addFindingEvent();
 console.log('tofind', elementsToFind);
 
 
