@@ -74,9 +74,26 @@ function createRandomAnimals() {
         animalElement.style.left = `${Math.random() * 90}%`;
         container.prepend(animalElement);
     };
+
     // If elements are loaded on page, then add to every element 'click' event with function of finding correct element
     allAnimals = document.querySelectorAll('.animal');
     allAnimals.forEach(addFindingEvent);
+}
+
+function createKiller() {
+    animals.push({
+        icon: "🕷",
+        id: "killer",
+    });
+    console.log(animals);
+    const killer = animals.find(el => el.id === "killer");
+    const killerElement = document.createElement("div");
+    killerElement.classList.add("animal");
+    killerElement.textContent = killer.icon;
+    killerElement.dataset.id = killer.id;
+    killerElement.style.top = `${Math.random() * 90}%`; 
+    killerElement.style.left = `${Math.random() * 90}%`;
+    container.prepend(killerElement);
 }
 
 function findElement() {
@@ -112,44 +129,10 @@ function removeFindingEvent(element) {
     element.removeEventListener('click', findElement);
 };
 
-
 randomAnimals();
 createRandomAnimals();
+// Launch createKiller() after createRandomAnimals() in case that killer should display once on screen
+createKiller();
 console.log('tofind', elementsToFind);
 
 
-
-
-
-
-
-
-
-
-
-
-
-/* let generateRandomAnimals = setInterval(function() {
-    randomAnimals();
-    
-    if (elementsToFind.length === toFind) {
-        clearInterval(generateRandomAnimals);
-    }
-}, 0);
- */
-
-/* let displayAnimals = setInterval(function() {
-    createAnimals();
-    counterElements++;
-    console.log('da',elementsToFind)
-    if (counterElements === toDisplay) {    
-        clearInterval(displayAnimals);
-        allAnimals = document.querySelectorAll('.animal');
-        
-        // If elements are loaded on page, then add to every element 'click' event with function of finding correct element
-        allAnimals.forEach(function(element){
-            element.addEventListener('click', findElement);
-        })
-    }
-
-}, 30); */
