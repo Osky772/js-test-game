@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Fruit Game</title>
+    <style>
+        body {
+            overflow-y: hidden;
+            background-color: yellow;
+        }
+
+        #points p {
+            float: right;
+            font-size: 30px;
+            margin: 0;
+            font-weight: 800;
+        }
+
+        #game {
+            height: 100vh;
+            position: relative;
+        }
+
+        #game .fruit-box {
+            position: absolute;
+            top: calc(50% - 100px);
+            left: calc(50% - 150px);
+        }
+    </style>
+</head>
+<body>
+<div id="points">
+    <p>POINTS: 0</p>
+</div>
+<div id="game">
+    <img class="fruit-box"
+         width="300px"
+         height="200px"
+         alt="fruit-box"
+         src="https://i.pinimg.com/originals/28/3d/2b/283d2b44e4d580269b8bd7c81ba4683e.png">
+
+    <script src="script.js"></script>
+</div>
+</body>
+</html>
