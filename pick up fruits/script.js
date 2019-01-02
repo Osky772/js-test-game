@@ -46,6 +46,10 @@ function displayFruits() {
         generateFruit();
         if (count === 20) {
             clearTimeout(time);
+            elements = document.querySelectorAll(".fruit");
+            elements.forEach((el) => {
+                el.removeEventListener('click', pickUp);
+            });
         }
     }, 500);
 };
