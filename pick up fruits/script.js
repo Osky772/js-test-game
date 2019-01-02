@@ -50,6 +50,7 @@ function displayFruits() {
             elements.forEach((el) => {
                 el.removeEventListener('click', pickUp);
             });
+            alert(`Udało Ci się zdobyć ${points} punktów na 20 możliwych. Brawo!!!`)
         }
     }, 500);
 };
@@ -71,5 +72,9 @@ function randomBackground() {
     }, 1000);
 }
 
-displayFruits();
-randomBackground();
+window.addEventListener('keydown', function(e) {
+    if (e.keyCode === 13) {
+        displayFruits();
+        randomBackground();
+    }
+})
