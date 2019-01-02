@@ -19,19 +19,35 @@
 // * po wcisnięciu spacji gra się pauzuje, po ponownym wciśnieciu gra toczy się dalej (0,5pkt)
 // * po wciśnieciu ok na alercie na koniec gracz może znów zagrać (wcisnąć enter) (0,5pkt)
 
-
+const container = document.querySelector("#game");
 var fruits = ['🍏', '🍐', '🍊', '🍋', '🍓'];
 
 var backgroundColors = ['#9400D3', '#4B0082', '#0000FF', '#00FF00','#FFFF00', '#FF7F00', '#FF0000'];
 
 function generateFruit() {
     const index = Math.floor(Math.random() * fruits.length);
-    
+    const fruitEl = document.createElement("div");
+
+    fruitEl.classList.add("fruit");
+    fruitEl.textContent = fruits[index];
+    fruitEl.style.top = `${Math.random() * 90}%`; 
+    fruitEl.style.left = `${Math.random() * 90}%`;
+    container.prepend(fruitEl);
 }
 
 function displayFruits() {
     let count = 0;
-    if(count <= 20) {
 
-    }
+    const time = setInterval(() => {
+        count++;
+        generateFruit();
+        
+        if (count === 20) {
+            clearTimeout(time)
+        }
+    }, 500);
+
+    
 }
+
+displayFruits();
