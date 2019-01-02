@@ -1,4 +1,4 @@
-**Zadanie polega na przećwiczeniu DOM JS**
+<!-- **Zadanie polega na przećwiczeniu DOM JS**
 
 Stwórz mikro grę w JS. 
 
@@ -25,4 +25,4 @@ Dodatkowa punktacja: **2 pkt**
 * po wcisnięciu spacji gra się pauzuje, po ponownym wciśnieciu gra toczy się dalej (0,5pkt)
 * po wciśnieciu ok na alercie na koniec gracz może znów zagrać (wcisnąć enter) (0,5pkt)
 
-Termin wykonania: 20.01.2019.
+Termin wykonania: 20.01.2019. -->
