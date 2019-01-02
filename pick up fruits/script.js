@@ -21,8 +21,9 @@
 
 const container = document.querySelector("#game");
 var fruits = ['🍏', '🍐', '🍊', '🍋', '🍓'];
-
-var backgroundColors = ['#9400D3', '#4B0082', '#0000FF', '#00FF00','#FFFF00', '#FF7F00', '#FF0000'];
+let backgroundColors = ['#9400D3', '#4B0082', '#0000FF', '#00FF00','#FFFF00', '#FF7F00', '#FF0000'];
+let points = 0;
+const pointsLabel = document.querySelector("#points p");
 
 function generateFruit() {
     const index = Math.floor(Math.random() * fruits.length);
@@ -33,6 +34,7 @@ function generateFruit() {
     fruitEl.style.top = `${Math.random() * 90}%`; 
     fruitEl.style.left = `${Math.random() * 90}%`;
     container.prepend(fruitEl);
+    fruitEl.addEventListener('click', pickUp);
 }
 
 function displayFruits() {
@@ -41,13 +43,16 @@ function displayFruits() {
     const time = setInterval(() => {
         count++;
         generateFruit();
-        
         if (count === 20) {
             clearTimeout(time)
         }
     }, 500);
+}
 
-    
+function pickUp() {
+    this.remove();
+    points++;
+    pointsLabel.innerHTML = `POINTS: ${points}`;
 }
 
 displayFruits();
