@@ -63,13 +63,11 @@ function randomAnimals() {
 function createRandomAnimals() {
     for (let i = 0; i !== toDisplay; i++) {
         const index = Math.floor(Math.random() * animals.length);
-        const animalIcon = animals[index].icon;
-        const animalId = animals[index].id;
         const animalElement = document.createElement("div");
         
         animalElement.classList.add("animal");
-        animalElement.textContent = animalIcon;
-        animalElement.dataset.id = animalId;
+        animalElement.textContent = animals[index].icon;
+        animalElement.dataset.id = animals[index].id;
         animalElement.style.top = `${Math.random() * 90}%`; 
         animalElement.style.left = `${Math.random() * 90}%`;
         container.prepend(animalElement);
