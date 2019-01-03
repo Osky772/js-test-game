@@ -38,23 +38,27 @@ function generateFruit() {
     fruitEl.style.left = `${Math.random() * 90}%`;
     container.prepend(fruitEl);
     fruitEl.addEventListener('click', pickUp);
+    displayedElements++;
+    console.log(displayedElements);
 
     //if it is a bomb then displayed element -1 because of displaying in total 20 elements without bombs
-    fruitEl.textContent === '💣' ? displayedElements -= 1: displayedElements;
+    if (fruitEl.textContent === '💣') {
+        generateFruit();
+        displayedElements -= 1;
+    }
 };
 
 function displayFruits() {
     const time = setInterval(() => {
-        displayedElements++;
-        console.log(displayedElements);
-        generateFruit();
         if (displayedElements === 20) {
-            clearTimeout(time);
+            clearInterval(time);
             elements = document.querySelectorAll(".fruit");
             elements.forEach((el) => {
                 el.removeEventListener('click', pickUp);
             });
             alert(`Udało Ci się zdobyć ${points} punktów na 20 możliwych. Brawo!!!`)
+        } else {
+            generateFruit();
         }
     }, 500);
 };
@@ -73,12 +77,14 @@ function pickUp() {
 
 function randomBackground() {
     let index = 0;
-    setInterval(() => {
-        index++;
-        body.style.background = backgroundColors[index];
-        if (index === backgroundColors.length) {
+    const time = setInterval(() => {
+        if (index === backgroundColors.length || displayedElements === 20) {
             index = 0;
-        }
+            clearInterval(time);
+        } else {
+            index++;
+            body.style.background = backgroundColors[index];
+        };
     }, 1000);
 }
 
