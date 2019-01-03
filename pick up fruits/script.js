@@ -28,6 +28,7 @@ let displayedElements = 0;
 let elements;
 let points = 0;
 let paused = false;
+let enter = false;
 
 function generateFruit() {
     const index = Math.floor(Math.random() * fruits.length);
@@ -47,7 +48,7 @@ function generateFruit() {
     }
 };
 
-function displayFruits() {
+function displayFruits(ent) {
     const time = setInterval(() => {
         if (displayedElements === 20) {
             clearInterval(time);
@@ -60,6 +61,7 @@ function displayFruits() {
             addElementsListeners();
         }
     }, 500);
+    
 };
 
 function pickUp() {
@@ -103,15 +105,19 @@ function randomBackground() {
     }, 1000);
 };
 
-window.addEventListener('keydown', function(e) {
+function launchGame(e) {
     if (e.keyCode === 13) {
+        !enter ? enter = true : enter;
         displayFruits();
         randomBackground();
+        window.removeEventListener('keydown', launchGame);
     };
-});
+};
+
+window.addEventListener('keydown', launchGame);
 
 window.addEventListener('keydown', function(e) {
     if (e.keyCode === 32) {
         !paused ? paused = true : paused = false;
     }
-})
+});
