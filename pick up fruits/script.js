@@ -21,12 +21,13 @@
 
 const body = document.querySelector("body");
 const container = document.querySelector("#game");
-var fruits = ['🍏', '🍐', '🍊', '🍋', '🍓', '💣'];
+const pointsLabel = document.querySelector("#points p");
+const fruits = ['🍏', '🍐', '🍊', '🍋', '🍓', '💣'];
+const backgroundColors = ['#9400D3', '#4B0082', '#0000FF', '#00FF00','#FFFF00', '#FF7F00', '#FF0000'];
 let displayedElements = 0;
 let elements;
-let backgroundColors = ['#9400D3', '#4B0082', '#0000FF', '#00FF00','#FFFF00', '#FF7F00', '#FF0000'];
 let points = 0;
-const pointsLabel = document.querySelector("#points p");
+let paused = false;
 
 function generateFruit() {
     const index = Math.floor(Math.random() * fruits.length);
@@ -37,9 +38,7 @@ function generateFruit() {
     fruitEl.style.top = `${Math.random() * 90}%`; 
     fruitEl.style.left = `${Math.random() * 90}%`;
     container.prepend(fruitEl);
-    fruitEl.addEventListener('click', pickUp);
     displayedElements++;
-    console.log(displayedElements);
 
     //if it is a bomb then displayed element -1 because of displaying in total 20 elements without bombs
     if (fruitEl.textContent === '💣') {
@@ -52,13 +51,13 @@ function displayFruits() {
     const time = setInterval(() => {
         if (displayedElements === 20) {
             clearInterval(time);
-            elements = document.querySelectorAll(".fruit");
-            elements.forEach((el) => {
-                el.removeEventListener('click', pickUp);
-            });
+            removeElementsListeners();
             alert(`Udało Ci się zdobyć ${points} punktów na 20 możliwych. Brawo!!!`)
+        } else if (paused) {
+            removeElementsListeners();
         } else {
             generateFruit();
+            addElementsListeners();
         }
     }, 500);
 };
@@ -75,22 +74,44 @@ function pickUp() {
     }
 };
 
+function removeElementsListeners() {
+    elements = document.querySelectorAll(".fruit");
+    elements.forEach((el) => {
+        el.removeEventListener('click', pickUp);
+    });
+};
+
+function addElementsListeners() {
+    elements = document.querySelectorAll(".fruit");
+    elements.forEach((el) => {
+        el.addEventListener('click', pickUp);
+    });
+};
+
 function randomBackground() {
     let index = 0;
     const time = setInterval(() => {
         if (index === backgroundColors.length || displayedElements === 20) {
             index = 0;
             clearInterval(time);
+        } else if (paused) {
+            body.style.background = backgroundColors[index];
         } else {
             index++;
             body.style.background = backgroundColors[index];
         };
     }, 1000);
-}
+};
 
 window.addEventListener('keydown', function(e) {
     if (e.keyCode === 13) {
         displayFruits();
         randomBackground();
+    };
+});
+
+window.addEventListener('keydown', function(e) {
+    if (e.keyCode === 32) {
+        !paused ? paused = true : paused = false;
     }
 })
