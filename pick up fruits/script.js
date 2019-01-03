@@ -21,7 +21,9 @@
 
 const body = document.querySelector("body");
 const container = document.querySelector("#game");
-var fruits = ['🍏', '🍐', '🍊', '🍋', '🍓'];
+var fruits = ['🍏', '🍐', '🍊', '🍋', '🍓', '💣'];
+let displayedElements = 0;
+let elements;
 let backgroundColors = ['#9400D3', '#4B0082', '#0000FF', '#00FF00','#FFFF00', '#FF7F00', '#FF0000'];
 let points = 0;
 const pointsLabel = document.querySelector("#points p");
@@ -36,15 +38,17 @@ function generateFruit() {
     fruitEl.style.left = `${Math.random() * 90}%`;
     container.prepend(fruitEl);
     fruitEl.addEventListener('click', pickUp);
+
+    //if it is a bomb then displayed element -1 because of displaying in total 20 elements without bombs
+    fruitEl.textContent === '💣' ? displayedElements -= 1: displayedElements;
 };
 
 function displayFruits() {
-    let count = 0;
-
     const time = setInterval(() => {
-        count++;
+        displayedElements++;
+        console.log(displayedElements);
         generateFruit();
-        if (count === 20) {
+        if (displayedElements === 20) {
             clearTimeout(time);
             elements = document.querySelectorAll(".fruit");
             elements.forEach((el) => {
@@ -56,9 +60,15 @@ function displayFruits() {
 };
 
 function pickUp() {
-    this.remove();
-    points++;
-    pointsLabel.innerHTML = `POINTS: ${points}`;
+    if (this.textContent === '💣') {
+        this.remove();
+        points > 0 ? points = points - 1 : points;
+        pointsLabel.innerHTML = `POINTS: ${points}`;
+    } else {
+        this.remove();
+        points++;
+        pointsLabel.innerHTML = `POINTS: ${points}`;
+    }
 };
 
 function randomBackground() {
