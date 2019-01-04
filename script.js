@@ -38,121 +38,43 @@ const animals = [
     },
 ];
 
-// Generate 4 random animals to pick up and display on screen
-/* function randomAnimals() {
-    // generate elements
-    for (let i = 0; elementsToFind.length < 3; i++) {
-        const index = Math.floor(Math.random() * animals.length);
-        const animalId = animals[index].id;
-        elementsToFind.push(animalId);
-    };
-    // create elements and display on screen
-
-    elementsToFind.forEach(function(el) {
-        const found = animals.find(function(animal) {
-            return animal.id === el;
-        });
-        const element = document.createElement("div");
-        element.classList.add("animal");
-        element.textContent = found.icon;
-        element.dataset.id = found.id;
-        element.style.top = `${Math.random() * 90}%`;
-        element.style.left = `${Math.random() * 90}%`;
-        container.prepend(element);
-    });
-}; */
-
-/* function randomAnimals() {
-
-    if (elementsToFind.length <= 3) {
-        const index = Math.floor(Math.random() * animals.length);
-        elementsToFind.push(animals[index].id);
-
-        const element = document.createElement("div");
-        element.classList.add("animal");
-        element.textContent = animals[index].icon;
-        element.dataset.id = animals[index].id;
-        element.style.top = `${Math.random() * 90}%`;
-        element.style.left = `${Math.random() * 90}%`;
-        container.prepend(element);
-    };
-}; */
-
-/* function createRandomAnimals() {
-    let count = 0;
-
-    const time = setInterval(function() {
-        count++;
-        if (count !== toDisplay) {
-            const index = Math.floor(Math.random() * animals.length);
-            const animalElement = document.createElement("div");
-            
-            animalElement.classList.add("animal");
-            animalElement.textContent = animals[index].icon;
-            animalElement.dataset.id = animals[index].id;
-            animalElement.style.top = `${Math.random() * 90}%`; 
-            animalElement.style.left = `${Math.random() * 90}%`;
-            container.prepend(animalElement);
-            randomAnimals();
-            addFindingEvent();
-            if (elementsToFind.length === 4) {
-                console.log('tofind', elementsToFind);
-            }
-        } else {
-            clearInterval(time);
-        }
-    }, 600);
-    
-} */
-
 function createAnimals() {
+    // create elements in total as toDisplay number is
     for (let i = 1; displayAnimals.length < toDisplay -1 ; i++) {
+        // generate 3 random elements to find
         for (let y = 0; elementsToFind.length < 3; i++) {
             const index = Math.floor(Math.random() * animals.length);
             elementsToFind.push(animals[index].id);
-            displayAnimals.push(animals[index].id);
+            displayAnimals.push(animals[index]);
         };
         const index = Math.floor(Math.random() * animals.length);
-        displayAnimals.push(animals[index].id);
+        displayAnimals.push(animals[index]);
     };
     animals.push({
         icon: "🕷",
         id: "killer",
     });
-    displayAnimals.push(animals[animals.length - 1].id);
+    displayAnimals.push(animals[animals.length - 1]);
     animals.pop();
-
     // sort displayAnimals randomly
     displayAnimals.sort(() => 0.5 - Math.random());
-    displayAnimals.forEach(function() {
+    // start creating elements
+    displayAnimals.forEach(function(animal, index) {
         setTimeout(function() {
-            
-        })
+            const animalElement = document.createElement("div");
+            animalElement.classList.add("animal");
+            animalElement.textContent = animal.icon;
+            animalElement.dataset.id = animal.id;
+            animalElement.style.top = `${Math.random() * 90}%`; 
+            animalElement.style.left = `${Math.random() * 90}%`;
+            container.prepend(animalElement);
+            addFindingEvent();
+        }, index * 100);
     });
-
-    console.log(elementsToFind);
-    console.log(displayAnimals);
-    
 };
 
 createAnimals();
-
-/* function createKiller() {
-    // push killer element to array in case for displaying killer once
-    animals.push({
-        icon: "🕷",
-        id: "killer",
-    });
-    const killer = animals.find(el => el.id === "killer");
-    const killerElement = document.createElement("div");
-    killerElement.classList.add("animal");
-    killerElement.textContent = killer.icon;
-    killerElement.dataset.id = killer.id;
-    killerElement.style.top = `${Math.random() * 90}%`; 
-    killerElement.style.left = `${Math.random() * 90}%`;
-    container.prepend(killerElement);
-    animals.pop();
-} */
+console.log(elementsToFind);
 
 function findElement() {
     const elementId = this.dataset.id;
@@ -193,6 +115,5 @@ function removeFindingEvent(element) {
     element.removeEventListener('click', findElement);
 };
 
-//createRandomAnimals();
 
 
