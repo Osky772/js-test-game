@@ -10,7 +10,6 @@ const toDisplay = 20; // level of hardness (how many random element without elem
 let displayAnimals = [];
 let elementsToFind = []; // array of items to find
 let allAnimals;
-let foundAnimals = [];
 const animals = [
     {
         icon: "🦁",
@@ -65,8 +64,8 @@ function createAnimals() {
             animalElement.classList.add("animal");
             animalElement.textContent = animal.icon;
             animalElement.dataset.id = animal.id;
-            animalElement.style.top = `${Math.random() * 90}%`; 
-            animalElement.style.left = `${Math.random() * 90}%`;
+            animalElement.style.top = topLeftRandom(); 
+            animalElement.style.left = topLeftRandom();
             container.prepend(animalElement);
             addFindingEvent();
         }, index * 100);
@@ -87,7 +86,7 @@ function findElement() {
         // remove element from array
         const found = elementsToFind.findIndex(el => el === elementId)
         elementsToFind.splice(found, 1);
-        this.remove();
+        this.style.cssText = `left: calc(${getRandomInt(40, 52)}%); top: calc(${getRandomInt(40, 55)}%); animation: linear;`
         console.log('to find: ', elementsToFind);
         // If every element found then you win
         if (elementsToFind.length === 0) {
@@ -103,6 +102,23 @@ function findElement() {
         console.log(`%c WRONG!!!`, `background: red`);
     }
 }
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function topLeftRandom() {
+    let random = getRandomInt(0, 90);
+    for (let i = 0; random > 37 && random < 55; i++) {
+        random = getRandomInt(0, 90);
+    }
+    return `${random}%`;
+}
+console.log(topLeftRandom());
+
+
 function addFindingEvent() {
     // If all elements are loaded on page, then add to every element 'click' event with function of finding correct element
     allAnimals = document.querySelectorAll('.animal');
@@ -114,6 +130,3 @@ function addFindingEvent() {
 function removeFindingEvent(element) {
     element.removeEventListener('click', findElement);
 };
-
-
-

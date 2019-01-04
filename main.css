@@ -6,6 +6,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 .container {
@@ -24,9 +25,13 @@ html, body {
     padding: 0.4rem;
     top: -4rem;
     line-height: 1;
-    left: calc(35%);
+    left: calc(5%);
     transition: all .5s;
     transform: translateY(0);
     transform: translateX(0);
     z-index: 9999;
+}
+
+@keyframes shakes {
+
 }
