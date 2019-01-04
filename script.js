@@ -86,7 +86,8 @@ function findElement() {
         // remove element from array
         const found = elementsToFind.findIndex(el => el === elementId)
         elementsToFind.splice(found, 1);
-        this.style.cssText = `left: calc(${getRandomInt(40, 52)}%); top: calc(${getRandomInt(40, 55)}%); animation: linear;`
+        this.style.cssText = `left: calc(${getRandomInt(40, 52)}%); top: calc(${getRandomInt(39, 50)}%); animation: linear;`;
+        this.removeEventListener('click', findElement);
         console.log('to find: ', elementsToFind);
         // If every element found then you win
         if (elementsToFind.length === 0) {
@@ -100,24 +101,27 @@ function findElement() {
         console.log('%c YOU LOSE!!!',' background: black; color: red; font-size: 4rem;');
     } else {
         console.log(`%c WRONG!!!`, `background: red`);
+        //this.classList.add("animation"); <---- how to add animation when its clicked 
     }
 }
+
+function animation() {
+    this.classList.add = "animation";
+};
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 function topLeftRandom() {
     let random = getRandomInt(0, 90);
     for (let i = 0; random > 37 && random < 55; i++) {
         random = getRandomInt(0, 90);
-    }
+    };
     return `${random}%`;
-}
-console.log(topLeftRandom());
-
+};
 
 function addFindingEvent() {
     // If all elements are loaded on page, then add to every element 'click' event with function of finding correct element

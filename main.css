@@ -25,13 +25,31 @@ html, body {
     padding: 0.4rem;
     top: -4rem;
     line-height: 1;
-    left: calc(5%);
+    left: calc(0%);
     transition: all .5s;
     transform: translateY(0);
     transform: translateX(0);
     z-index: 9999;
 }
 
-@keyframes shakes {
-
+.animation {
+    animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
 }
+
+@keyframes shake {
+    10%, 90% {
+      transform: translateX(-1px);
+    }
+    
+    20%, 80% {
+      transform: translateX(2px);
+    }
+  
+    30%, 50%, 70% {
+      transform: translateX(-4px);
+    }
+  
+    40%, 60% {
+      transform: translateX(4px);
+    }
+  }
