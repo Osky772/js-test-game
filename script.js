@@ -4,7 +4,13 @@
 // App should have way to pick up only these elements that are meant to pick
 // App should have way to log alert after picked wrong element
 
-const container = document.getElementById("container");
+
+/*********************************************
+                PIZZA MAKER
+*********************************************/
+
+const body = document.querySelector("body");
+const pizzaContainer = document.querySelector(".container");
 const box = document.getElementById("box");
 const toDisplay = 20; // level of hardness (how many random element without element fo find)
 let displayAnimals = [];
@@ -66,7 +72,7 @@ function createAnimals() {
             animalElement.dataset.id = animal.id;
             animalElement.style.top = topLeftRandom(); 
             animalElement.style.left = topLeftRandom();
-            container.prepend(animalElement);
+            pizzaContainer.prepend(animalElement);
             addFindingEvent();
         }, index * 100);
     });
@@ -87,10 +93,16 @@ function findElement() {
         that.style.cssText = `left: calc(${getRandomInt(40, 52)}%); top: calc(${getRandomInt(39, 50)}%); animation: linear;`;
         that.removeEventListener('click', findElement);
         console.log('to find: ', elementsToFind);
-        // If every element found then you win
+        // If every element found then you WIN
         if (elementsToFind.length === 0) {
             console.log(`%c WINNER`, `font-size: 3rem; color: darkgreen`);
             allAnimals.forEach(removeFindingEvent);
+            setTimeout(function() {
+                pizzaContainer.remove();
+                const deliverContainer = document.createElement("div");
+                deliverContainer.classList.add("container");
+                body.prepend(deliverContainer);
+            }, 3000);
         } else {
             console.log(`%c That's correct element!`, `background: lightgreen;`);
         }
@@ -102,14 +114,7 @@ function findElement() {
         // shake wrong element when clicked;
         that.classList.add("animation");
         that.addEventListener("animationend", () => that.classList.remove("animation"));
-        /* const time = setTimeout(function() {
-            that.classList.remove("animation");
-        }, 300); */
-    }
-}
-
-function animation() {
-    this.classList.add = "animation";
+    };
 };
 
 function getRandomInt(min, max) {
@@ -137,3 +142,12 @@ function addFindingEvent() {
 function removeFindingEvent(element) {
     element.removeEventListener('click', findElement);
 };
+
+/****************************************
+            DELIVER GAME
+*****************************************/
+
+let deliverContainer;
+const car = document.createElement("div");
+
+car.classList.add("car");
