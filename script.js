@@ -101,9 +101,10 @@ function findElement() {
         console.log(`%c WRONG!!!`, `background: red`);
         // shake wrong element when clicked;
         that.classList.add("animation");
-        const time = setTimeout(function() {
+        that.addEventListener("animationend", () => that.classList.remove("animation"));
+        /* const time = setTimeout(function() {
             that.classList.remove("animation");
-        }, 300);
+        }, 300); */
     }
 }
 
