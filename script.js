@@ -76,18 +76,16 @@ createAnimals();
 console.log(elementsToFind);
 
 function findElement() {
-    const elementId = this.dataset.id;
+    const that = this;
     // find element by it's id 
-     const isFound = elementsToFind.some(function(element){
-        return element === elementId;
-     });
+     const isFound = elementsToFind.some((element) => element === that.dataset.id);
     // if you found item then remove it
     if (isFound) {
         // remove element from array
-        const found = elementsToFind.findIndex(el => el === elementId)
+        const found = elementsToFind.findIndex(el => el === that.dataset.id)
         elementsToFind.splice(found, 1);
-        this.style.cssText = `left: calc(${getRandomInt(40, 52)}%); top: calc(${getRandomInt(39, 50)}%); animation: linear;`;
-        this.removeEventListener('click', findElement);
+        that.style.cssText = `left: calc(${getRandomInt(40, 52)}%); top: calc(${getRandomInt(39, 50)}%); animation: linear;`;
+        that.removeEventListener('click', findElement);
         console.log('to find: ', elementsToFind);
         // If every element found then you win
         if (elementsToFind.length === 0) {
@@ -96,12 +94,16 @@ function findElement() {
         } else {
             console.log(`%c That's correct element!`, `background: lightgreen;`);
         }
-    } else if (elementId === "killer") {
+    } else if (that.dataset.id === "killer") {
         allAnimals.forEach(removeFindingEvent);
         console.log('%c YOU LOSE!!!',' background: black; color: red; font-size: 4rem;');
     } else {
         console.log(`%c WRONG!!!`, `background: red`);
-        //this.classList.add("animation"); <---- how to add animation when its clicked 
+        // shake wrong element when clicked;
+        that.classList.add("animation");
+        const time = setTimeout(function() {
+            that.classList.remove("animation");
+        }, 300);
     }
 }
 
