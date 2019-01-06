@@ -68,8 +68,18 @@ html, body {
 }
 
 .deliver-map {
-    width: 1200px;
-    height: 800px;
+    width: 1140px;
+    height: 760px;
+    background: lightgray;
+    border-left: 25px solid lightgray;
+}
+
+.home1 {
+    top: 150px;
+    left: 0px;
+    background: black;
+    width: 200px;
+    height: 200px;
 }
 
 .car {
@@ -82,7 +92,8 @@ html, body {
     left: var(--positionX);
     width: 70px;
     height: 115px;
-    transition: top 0.5s, left 0.5s, transform 0.2s;
-    transform: rotate(90deg)
+    transition: top 0.4s, left 0.4s;
+    transform: rotate(90deg);
 }
+
 

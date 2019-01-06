@@ -1,7 +1,5 @@
 const body = document.querySelector("body");
-const deliverContainer = document.createElement("div");
-deliverContainer.classList.add("deliver-map");
-body.prepend(deliverContainer);
+const deliverContainer = document.querySelector(".deliver-map");
 
 const car = document.createElement("div");
 car.classList.add("car");
@@ -9,45 +7,67 @@ car.dataset.px = 'px';
 const suffix = car.dataset.px;
 deliverContainer.prepend(car);
 
+let deg = 90;
+let positionY = 0;
+let positionX = 0;
+
 function rideRight() {
-    car.style.transform = "rotate(90deg)";
+    deg = 90;
+    car.style.transform = `rotate(${deg}deg)`;
     let value = getComputedStyle(document.documentElement).getPropertyValue(`--positionX`);
     // trim value of "px"
-    let positionX = value.slice(0, -2);
+    positionX = Number(value.slice(0, -2));
+    console.log('X', positionX, 'Y', positionY)
     // update position with more 80px
-    document.documentElement.style.setProperty(`--positionX`, Number(positionX) + 80 + suffix);
-    console.log(getComputedStyle(car).transform);
+    if (positionX < 1040) {
+        positionX += 80;
+        document.documentElement.style.setProperty(`--positionX`, positionX + suffix);
+    };
 };
 
 function rideDown() {
-    car.style.transform = "rotate(180deg)";
+    deg = 180;
+    car.style.transform = `rotate(${deg}deg)`;
     let value = getComputedStyle(document.documentElement).getPropertyValue(`--positionY`);
-    let positionY = value.slice(0, -2);
-    document.documentElement.style.setProperty(`--positionY`, Number(positionY) + 80 + suffix);
-    console.log(getComputedStyle(car).transform);
+    positionY = Number(value.slice(0, -2));
+    console.log('X', positionX, 'Y', positionY);
+    if (positionY < 640) {
+        positionY += 80;
+        document.documentElement.style.setProperty(`--positionY`, positionY + suffix);
+    };
 };
 
 function rideLeft() {
-    car.style.transform = "rotate(270deg)";
+    deg = 270;
+    car.style.transform = `rotate(${deg}deg)`;
     let value = getComputedStyle(document.documentElement).getPropertyValue(`--positionX`);
-    let positionX = value.slice(0, -2);
-    document.documentElement.style.setProperty(`--positionX`, Number(positionX) - 80 + suffix);
-    console.log(getComputedStyle(car).transform);
+    positionX = Number(value.slice(0, -2));
+    console.log('X', positionX, 'Y', positionY)
+    if (positionX > 0) {
+        positionX -= 80;
+        document.documentElement.style.setProperty(`--positionX`, positionX + suffix);
+    };
 };
 
 function rideTop() {
-    // if car is turned left then...
-    let direction = getComputedStyle(car).transform;
-    if (direction === "matrix(-1.83697e-16, -1, 1, -1.83697e-16, 0, 0)") {
-        car.style.transform = "rotate(360deg)";
+    if (deg === 270) {
+        deg = 360;
+        car.style.transform = `rotate(${deg}deg)`
+    } else if (deg === 360) {
+        deg = 360;
+        car.style.transform = `rotate(${deg}deg)`
     } else {
-        car.style.transform = "rotate(0deg)";
-    }
-    console.log(getComputedStyle(car).transform);
+        deg = 0;
+        car.style.transform = `rotate(${deg}deg)`
+    };
     let value = getComputedStyle(document.documentElement).getPropertyValue(`--positionY`);
-    let positionY = value.slice(0, -2);
-    document.documentElement.style.setProperty(`--positionY`, Number(positionY) - 80 + suffix);
-}
+    positionY = Number(value.slice(0, -2));
+    console.log('X', positionX, 'Y', positionY);
+    if (positionY > 0) {
+        positionY -= 80;
+        document.documentElement.style.setProperty(`--positionY`, positionY + suffix);
+    };
+};
 
 window.addEventListener("keydown", function(e) {
     if (e.keyCode === 39)  {
