@@ -9,13 +9,17 @@ car.dataset.px = 'px';
 deliverContainer.prepend(car);
 
 function rideRight() {
-    let position = getComputedStyle(document.documentElement).getPropertyValue(`--positionX`);
-    
-    console.log(position);    
+    car.style.transform = "rotate(90deg)";
+    const suffix = car.dataset.px;
+    let value = getComputedStyle(document.documentElement).getPropertyValue(`--positionX`);
+    // trim value of "px"
+    let positionX = value.slice(0, -2);
+    console.log(positionX);
+    document.documentElement.style.setProperty(`--positionX`, Number(positionX) + 80 + suffix);
 };
 
 window.addEventListener("keydown", function(e) {
     if (e.keyCode === 39)  {
         rideRight();
-    };
+    }
 });
