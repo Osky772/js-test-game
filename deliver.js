@@ -31,8 +31,6 @@ homes.forEach(function(home, i) {
         home: i,
         posY : Number(getComputedStyle(home).getPropertyValue("top").slice(0, -2)),
         posX : Number(getComputedStyle(home).getPropertyValue("left").slice(0, -2)),
-        width : Number(getComputedStyle(home).getPropertyValue("width").slice(0, -2)),
-        height : Number(getComputedStyle(home).getPropertyValue("height").slice(0, -2)),
     });
 });
 
@@ -45,7 +43,6 @@ function rideRight() {
     let cordsX = homesCords.some(function(home) {
         return positionX + 80 === home.posX && positionY === home.posY;
     });
-    console.log('rideRight', cordsX);
     if (cordsX) {
             positionX;
         } else {
@@ -55,7 +52,6 @@ function rideRight() {
             // update position with more 80px
             if (positionX < 1040) {
                 positionX += 80;
-                console.log('X', positionX, 'Y', positionY)
                 document.documentElement.style.setProperty(`--positionX`, positionX + suffix);
             };
         };
@@ -65,7 +61,6 @@ function rideLeft() {
     let cordsX = homesCords.some(function(home) {
         return positionX - 80 === home.posX && positionY === home.posY;
     });
-    console.log('rideLeft', cordsX);
     if (cordsX) {
         positionX;
     } else {
@@ -74,7 +69,6 @@ function rideLeft() {
         positionX = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionX`).slice(0, -2));
         if (positionX > 0) {
             positionX -= 80;
-            console.log('X', positionX, 'Y', positionY);
             document.documentElement.style.setProperty(`--positionX`, positionX + suffix);
         };
     };
@@ -84,7 +78,6 @@ function rideDown() {
     let cordsY = homesCords.some(function(home) {
         return positionX === home.posX && positionY + 80 === home.posY;
     });
-    console.log('rideDown', cordsY);
     if (cordsY) {
             positionY;
         } else {
@@ -93,7 +86,6 @@ function rideDown() {
             positionY = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionY`).slice(0, -2));
             if (positionY < 640) {
                 positionY += 80;
-                console.log('X', positionX, 'Y', positionY);
                 document.documentElement.style.setProperty(`--positionY`, positionY + suffix);
             };
         };
@@ -103,10 +95,6 @@ function rideTop() {
     let cordsY = homesCords.some(function(home) {
         return positionX === home.posX && positionY - 80 === home.posY;
     });
-    /* let cordsY = homesCords.some(function(home) {
-        positionX >= home.posX && positionX <= home.posX + home.width - 80 && home.positionY - 80 <= home.posY + home.height - 80;
-    }); */
-    console.log('rightTop', cordsY);
     if (cordsY) {
         positionY;
     } else {
@@ -123,7 +111,6 @@ function rideTop() {
         positionY = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionY`).slice(0, -2));
         if (positionY > 0) {
             positionY -= 80;
-            console.log('X', positionX, 'Y', positionY);
             document.documentElement.style.setProperty(`--positionY`, positionY + suffix);
         };
     };
