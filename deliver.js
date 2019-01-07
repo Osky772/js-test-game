@@ -31,35 +31,23 @@ console.log(sizeX); */
 
 
 function rideRight() {
-    deg = 90;
-    car.style.transform = `rotate(${deg}deg)`;
-    positionX = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionX`).slice(0, -2));
-    // update position with more 80px
-    if (positionX < 1040) {
-        positionX += 80;
-        console.log('X', positionX, 'Y', positionY)
-        document.documentElement.style.setProperty(`--positionX`, positionX + suffix);
-    };
-};
-
-function rideDown() {
-    carSizeY = positionY + 80;
-    if (Boolean(positionX < width && positionX >= posX && positionY + 80 === height)) {
-        positionY;
+    if (Boolean(positionX + 80 < width + posX && positionX + 80 >= posX && positionY === posY)) {
+        positionX;
     } else {
-        deg = 180;
+        deg = 90;
         car.style.transform = `rotate(${deg}deg)`;
-        positionY = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionY`).slice(0, -2));
-        if (positionY < 640) {
-            positionY += 80;
-            console.log('X', positionX, 'Y', positionY);
-            document.documentElement.style.setProperty(`--positionY`, positionY + suffix);
+        positionX = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionX`).slice(0, -2));
+        // update position with more 80px
+        if (positionX < 1040) {
+            positionX += 80;
+            console.log('X', positionX, 'Y', positionY)
+            document.documentElement.style.setProperty(`--positionX`, positionX + suffix);
         };
     };
 };
 
 function rideLeft() {
-    if (Boolean(positionX - 80 < width && positionX - 80 >= posX && positionY  === height)) {
+    if (Boolean(positionX - 80 < width + posX && positionX - 80 >= posX && positionY === posY)) {
         positionX;
     } else {
         deg = 270;
@@ -73,8 +61,23 @@ function rideLeft() {
     };
 };
 
+function rideDown() {
+    if (Boolean(positionX < width + posX && positionX >= posX && positionY + 80 <= height + posY)) {
+        positionY;
+    } else {
+        deg = 180;
+        car.style.transform = `rotate(${deg}deg)`;
+        positionY = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionY`).slice(0, -2));
+        if (positionY < 640) {
+            positionY += 80;
+            console.log('X', positionX, 'Y', positionY);
+            document.documentElement.style.setProperty(`--positionY`, positionY + suffix);
+        };
+    };
+};
+
 function rideTop() {
-    if (Boolean(positionX < width && positionX >= posX && positionY - 80 === height)) {
+    if (Boolean(positionX < width + posX && positionX >= posX && positionY - 80 <= height + posY)) {
         positionY;
     } else {
         if (deg === 270) {

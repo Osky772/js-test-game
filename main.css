@@ -81,10 +81,10 @@ html, body {
 .home1 {
     position: absolute;
     top: 80px;
-    left: 0px;
+    left: 80px;
     background: black;
     border: 1px solid red;
-    width: 160px;
+    width: 80px;
     height: 80px;
 }
 
