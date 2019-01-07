@@ -31,7 +31,7 @@ console.log(sizeX); */
 
 
 function rideRight() {
-    if (Boolean(positionX + 80 < width + posX && positionX + 80 >= posX && positionY === posY)) {
+    if (Boolean(positionX + 80 === posX && positionY >= posY && positionY <= posY + height - 80)) {
         positionX;
     } else {
         deg = 90;
@@ -47,7 +47,7 @@ function rideRight() {
 };
 
 function rideLeft() {
-    if (Boolean(positionX - 80 < width + posX && positionX - 80 >= posX && positionY === posY)) {
+    if (Boolean(positionX - 80 === posX + width - 80 && positionY >= posY && positionY <= posY + height - 80)) {
         positionX;
     } else {
         deg = 270;
@@ -62,7 +62,7 @@ function rideLeft() {
 };
 
 function rideDown() {
-    if (Boolean(positionX < width + posX && positionX >= posX && positionY + 80 <= height + posY)) {
+    if (Boolean(positionX >= posX && positionX <= posX + width - 80 && positionY + 80 <= posY)) {
         positionY;
     } else {
         deg = 180;
@@ -77,7 +77,7 @@ function rideDown() {
 };
 
 function rideTop() {
-    if (Boolean(positionX < width + posX && positionX >= posX && positionY - 80 <= height + posY)) {
+    if (Boolean(positionX >= posX && positionX <= posX + width - 80 && positionY - 80 <= posY + height - 80)) {
         positionY;
     } else {
         if (deg === 270) {
