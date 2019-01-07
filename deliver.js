@@ -14,13 +14,6 @@ let positionX = 0;
 const homes = document.querySelectorAll(".home");
 let homesCords = [];
 
-const home1 = document.querySelector(".home1");
-
-/* let sizeX = posX + width;
-let sizeY = posY + height;
-console.log(sizeY);
-console.log(sizeX); */
-
 let posY = 0;
 let posX = 0;
 let width = 0;
@@ -33,7 +26,6 @@ homes.forEach(function(home, i) {
         posX : Number(getComputedStyle(home).getPropertyValue("left").slice(0, -2)),
     });
 });
-
 
 let cordsY = homesCords.some(function(home) {
     return home.posY === positionY;
@@ -49,7 +41,6 @@ function rideRight() {
             deg = 90;
             car.style.transform = `rotate(${deg}deg)`;
             positionX = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionX`).slice(0, -2));
-            // update position with more 80px
             if (positionX < 1040) {
                 positionX += 80;
                 document.documentElement.style.setProperty(`--positionX`, positionX + suffix);
