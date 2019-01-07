@@ -38,6 +38,7 @@ function rideRight() {
     if (cordsX) {
             positionX;
         } else {
+            car.style.transition = `top 0.3s, left 0.3s, transform 0.2s`;
             deg = 90;
             car.style.transform = `rotate(${deg}deg)`;
             positionX = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionX`).slice(0, -2));
@@ -55,8 +56,19 @@ function rideLeft() {
     if (cordsX) {
         positionX;
     } else {
-        deg = 270;
-        car.style.transform = `rotate(${deg}deg)`;
+        if (deg === 0) {
+            car.style.transition = `top 0.3s, left 0.3s, transform 0.2s`;
+            car.style.transform = `rotate(-90deg)`;
+            setTimeout(function() {
+                car.style.transition = `top 0.3s, left 0.3s, transform 0s`;
+                deg = 270;
+                car.style.transform = `rotate(${deg}deg)`;
+            }, 200);
+        } else {
+            car.style.transition = `top 0.3s, left 0.3s, transform 0.2s`;
+            deg = 270;
+            car.style.transform = `rotate(${deg}deg)`;
+        }
         positionX = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionX`).slice(0, -2));
         if (positionX > 0) {
             positionX -= 80;
@@ -72,6 +84,7 @@ function rideDown() {
     if (cordsY) {
             positionY;
         } else {
+            car.style.transition = `top 0.3s, left 0.3s, transform 0.2s`;
             deg = 180;
             car.style.transform = `rotate(${deg}deg)`;
             positionY = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionY`).slice(0, -2));
@@ -90,15 +103,18 @@ function rideTop() {
         positionY;
     } else {
         if (deg === 270) {
+            car.style.transition = `top 0.3s, left 0.3s, transform 0.2s`;
             deg = 360;
-            car.style.transform = `rotate(${deg}deg)`
-        } else if (deg === 360) {
-            deg = 360;
-            car.style.transform = `rotate(${deg}deg)`
-        } else {
+            car.style.transform = `rotate(${deg}deg)`;
+        } else if (deg === 360){
+            car.style.transition = `top 0.3s, left 0.3s, transform 0s`;
             deg = 0;
-            car.style.transform = `rotate(${deg}deg)`
-        };
+            car.style.transform = `rotate(${deg}deg)`;
+        } else {
+            car.style.transition = `top 0.3s, left 0.3s, transform 0.2s`;
+            deg = 0;
+            car.style.transform = `rotate(${deg}deg)`;
+        }
         positionY = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionY`).slice(0, -2));
         if (positionY > 0) {
             positionY -= 80;

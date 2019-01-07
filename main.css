@@ -126,7 +126,7 @@ html, body {
     left: var(--positionX);
     width: 80px;
     height: 80px;
-    transition: top 0.3s, left 0.3s;
+    transition: top 0.3s, left 0.3s, transform 0.2s;
     transform: rotate(90deg);
 }
 
