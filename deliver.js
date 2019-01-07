@@ -7,22 +7,12 @@ car.dataset.px = 'px';
 const suffix = car.dataset.px;
 deliverContainer.prepend(car);
 
+const homes = document.querySelectorAll(".home");
 const home1 = document.querySelector(".home1");
 
 let deg = 90;
 let positionY = 0;
 let positionX = 0;
-let carSizeY = positionY + 80;
-let carSizeX = positionX + 80;
-
-let posY = Number(getComputedStyle(home1).getPropertyValue("top").slice(0, -2));
-let posX = Number(getComputedStyle(home1).getPropertyValue("left").slice(0, -2));
-let width = Number(getComputedStyle(home1).getPropertyValue("width").slice(0, -2));
-let height = Number(getComputedStyle(home1).getPropertyValue("height").slice(0, -2));
-console.log('Y', posY)
-console.log('X', posX)
-console.log('wh', width)
-console.log('hh', height)
 
 /* let sizeX = posX + width;
 let sizeY = posY + height;
@@ -31,19 +21,29 @@ console.log(sizeX); */
 
 
 function rideRight() {
+  let posY = 0;
+  let posX = 0;
+  let width = 0;
+  let height  = 0;
+    homes.forEach(function(home, i) {
+    posY = Number(getComputedStyle(home).getPropertyValue("top").slice(0, -2));
+    posX = Number(getComputedStyle(home).getPropertyValue("left").slice(0, -2));
+    width = Number(getComputedStyle(home).getPropertyValue("width").slice(0, -2));
+    height = Number(getComputedStyle(home).getPropertyValue("height").slice(0, -2));
+ });
     if (Boolean(positionX + 80 === posX && positionY >= posY && positionY <= posY + height - 80)) {
-        positionX;
-    } else {
-        deg = 90;
-        car.style.transform = `rotate(${deg}deg)`;
-        positionX = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionX`).slice(0, -2));
-        // update position with more 80px
-        if (positionX < 1040) {
-            positionX += 80;
-            console.log('X', positionX, 'Y', positionY)
-            document.documentElement.style.setProperty(`--positionX`, positionX + suffix);
+            positionX;
+        } else {
+            deg = 90;
+            car.style.transform = `rotate(${deg}deg)`;
+            positionX = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionX`).slice(0, -2));
+            // update position with more 80px
+            if (positionX < 1040) {
+                positionX += 80;
+                console.log('X', positionX, 'Y', positionY)
+                document.documentElement.style.setProperty(`--positionX`, positionX + suffix);
+            };
         };
-    };
 };
 
 function rideLeft() {
@@ -62,7 +62,19 @@ function rideLeft() {
 };
 
 function rideDown() {
-    if (Boolean(positionX >= posX && positionX <= posX + width - 80 && positionY + 80 <= posY)) {
+let posY = 0;
+let posX = 0;
+let width = 0;
+let height  = 0;
+
+homes.forEach(function(home, i) {
+    posY = Number(getComputedStyle(home).getPropertyValue("top").slice(0, -2));
+    posX = Number(getComputedStyle(home).getPropertyValue("left").slice(0, -2));
+    width = Number(getComputedStyle(home).getPropertyValue("width").slice(0, -2));
+    height = Number(getComputedStyle(home).getPropertyValue("height").slice(0, -2));
+});
+
+if (Boolean(positionX >= posX && positionX <= posX + width - 80 && positionY + 80 <= posY)) {
         positionY;
     } else {
         deg = 180;
@@ -74,6 +86,7 @@ function rideDown() {
             document.documentElement.style.setProperty(`--positionY`, positionY + suffix);
         };
     };
+    
 };
 
 function rideTop() {
