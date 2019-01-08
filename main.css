@@ -72,10 +72,13 @@ html, body {
 }
 
 .deliver-map {
-    width: 1140px;
-    height: 760px;
+    width: 1120px;
+    height: 720px;
     background: lightgray;
     position: relative;
+    display: grid;
+    grid-template-columns: 80px 80px 80px 80px 80px 80px 80px 80px 80px 80px 80px 80px 80px 80px;
+    grid-template-rows: 80px 80px 80px 80px 80px 80px 80px 80px 80px;
 }
 
 .home {
@@ -84,35 +87,6 @@ html, body {
     height: 80px;
     background: black;
     border: 1px solid red;
-}
-
-.home1 {
-    top: 80px;
-    left: 240px;
-}
-
-.home2 {
-    top: 240px;
-    left: 80px;
-    background: blue;
-}
-
-.home3 {
-    top: 240px;
-    left: 0px;
-    background: red;
-}
-
-.home4 {
-    top: 240px;
-    left: 240px;
-    background: green;
-}
-
-.home5 {
-    top: 80px;
-    left: 320px;
-    background: pink;
 }
 
 .car {

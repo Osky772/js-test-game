@@ -11,25 +11,6 @@ let deg = 90;
 let positionY = 0;
 let positionX = 0;
 
-const homes = document.querySelectorAll(".home");
-let homesCords = [];
-
-let posY = 0;
-let posX = 0;
-let width = 0;
-let height  = 0;
-
-homes.forEach(function(home, i) {
-    homesCords.push({
-        home: i,
-        posY : Number(getComputedStyle(home).getPropertyValue("top").slice(0, -2)),
-        posX : Number(getComputedStyle(home).getPropertyValue("left").slice(0, -2)),
-    });
-});
-
-let cordsY = homesCords.some(function(home) {
-    return home.posY === positionY;
-});
 
 function rideRight() {
     let cordsX = homesCords.some(function(home) {
@@ -133,4 +114,52 @@ window.addEventListener("keydown", function(e) {
     } else if (e.keyCode === 38) {
         rideTop();
     }
+});
+
+/*********************************************
+                CREATE HOUSES
+**********************************************/
+
+let posY = 0;
+let posX = 0;
+let width = 0;
+let height  = 0;
+
+const totalWidth = Number(getComputedStyle(deliverContainer).getPropertyValue("width").slice(0, -2));
+const totalHeight = Number(getComputedStyle(deliverContainer).getPropertyValue("height").slice(0, -2));
+
+
+
+// column from top 80px to 560px
+for (let y = 80; y + 80 < totalHeight; y += 80) {
+    const home = document.createElement("div");
+    home.classList.add("home");
+    home.style.setProperty("top", `${y}px`);
+    deliverContainer.append(home);
+};
+
+// row from x 160px to to 800px
+for (let x = 160; x + 80 < totalWidth - 160; x += 80) {
+    const home = document.createElement("div");
+    home.classList.add("home");
+    home.style.setProperty("left", `${x}px`);
+    deliverContainer.append(home);
+};
+
+
+
+const homes = document.querySelectorAll(".home");
+let homesCords = [];
+
+
+homes.forEach(function(home, i) {
+    homesCords.push({
+        home: i,
+        posY : Number(getComputedStyle(home).getPropertyValue("top").slice(0, -2)),
+        posX : Number(getComputedStyle(home).getPropertyValue("left").slice(0, -2)),
+    });
+});
+
+let cordsY = homesCords.some(function(home) {
+    return home.posY === positionY;
 });
