@@ -91,7 +91,7 @@ html, body {
 
 .car {
     display: inline-block;
-    background-image: url("img/car.png");
+    background-image: url("img/car_topview.svg");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -100,7 +100,7 @@ html, body {
     left: var(--positionX);
     width: 80px;
     height: 80px;
-    transition: top 0.3s, left 0.3s, transform 0.2s;
+    transition: top 0.4s, left 0.4s, transform 0.1s;
     transform: rotate(90deg);
 }
 
