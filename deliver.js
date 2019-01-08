@@ -128,29 +128,49 @@ let height  = 0;
 const totalWidth = Number(getComputedStyle(deliverContainer).getPropertyValue("width").slice(0, -2));
 const totalHeight = Number(getComputedStyle(deliverContainer).getPropertyValue("height").slice(0, -2));
 
-
-
-// column from top 80px to 560px
-for (let y = 80; y + 80 < totalHeight; y += 80) {
-    const home = document.createElement("div");
-    home.classList.add("home");
-    home.style.setProperty("top", `${y}px`);
-    deliverContainer.append(home);
+function createRow(startX, endX, startY) {
+    for (let x = startX; x <= endX; x += 80) {
+        const y = startY;
+        const home = document.createElement("div");
+        home.classList.add("home");
+        home.style.setProperty("left", `${x}px`);
+        home.style.setProperty("top", `${y}px`);
+        deliverContainer.append(home);
+    };
 };
 
-// row from x 160px to to 800px
-for (let x = 160; x + 80 < totalWidth - 160; x += 80) {
-    const home = document.createElement("div");
-    home.classList.add("home");
-    home.style.setProperty("left", `${x}px`);
-    deliverContainer.append(home);
+function createColumn(startY, endY, startX) {
+    for (let y = startY; y <= endY; y += 80) {
+        let x = startX;
+        const home = document.createElement("div");
+        home.classList.add("home");
+        home.style.setProperty("top", `${y}px`);
+        home.style.setProperty("left", `${x}px`);
+        deliverContainer.append(home);
+    };
 };
 
-
+createColumn(80,560,0);
+createRow(160,800,0);
+createColumn(0,640,1040);
+createColumn(0,240,800);
+createRow(160, 640, 160);
+createColumn(240,240,160);
+createRow(160,320,400);
+createColumn(320,320,320);
+createRow(320,480,320);
+createColumn(160,320,640);
+createRow(720,880,480);
+createRow(800,880,400);
+createRow(480,560,480);
+createRow(480,880,640);
+createRow(880,880,240);
+createRow(880,880,80);
+createColumn(560,640,160);
+createRow(240,320,560);
 
 const homes = document.querySelectorAll(".home");
 let homesCords = [];
-
 
 homes.forEach(function(home, i) {
     homesCords.push({
