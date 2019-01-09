@@ -100,7 +100,7 @@ html, body {
     left: var(--positionX);
     width: 80px;
     height: 80px;
-    transition: top 0.4s, left 0.4s, transform 0.1s;
+    transition: top 0.5s, left 0.5s, transform 0.1s;
     transform: rotate(90deg);
 }
 

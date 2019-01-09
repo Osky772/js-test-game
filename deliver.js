@@ -14,39 +14,43 @@ let positionX = 0;
 
 function rideRight() {
     let cordsX = homesCords.some(function(home) {
-        return positionX + 80 === home.posX && positionY === home.posY;
+        return positionX + 80 === home.posX && positionY === home.posY && !(positionX + 80 === deliverCords.posX && positionY === deliverCords.posY);
     });
     if (cordsX) {
             positionX;
         } else {
-            car.style.transition = `top 0.4s, left 0.4s, transform 0.1s`;
+            car.style.transition = `top 0.5s, left 0.5s, transform 0.1s`;
             deg = 90;
             car.style.transform = `rotate(${deg}deg)`;
             positionX = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionX`).slice(0, -2));
             if (positionX < 1040) {
                 positionX += 80;
                 document.documentElement.style.setProperty(`--positionX`, positionX + suffix);
+                if (positionY === deliverCords.posY && positionX === deliverCords.posX) {
+                    console.log('winner');
+                    window.removeEventListener("keydown", addKeys);
+                };
             };
         };
   };
 
 function rideLeft() {
     let cordsX = homesCords.some(function(home) {
-        return positionX - 80 === home.posX && positionY === home.posY;
+        return positionX - 80 === home.posX && positionY === home.posY && !(positionX - 80 === deliverCords.posX && positionY === deliverCords.posY);
     });
     if (cordsX) {
         positionX;
     } else {
         if (deg === 0) {
-            car.style.transition = `top 0.4s, left 0.4s, transform 0.1s`;
+            car.style.transition = `top 0.5s, left 0.5s, transform 0.1s`;
             car.style.transform = `rotate(-90deg)`;
             setTimeout(function() {
-                car.style.transition = `top 0.4s, left 0.4s, transform 0s`;
+                car.style.transition = `top 0.5s, left 0.5s, transform 0s`;
                 deg = 270;
                 car.style.transform = `rotate(${deg}deg)`;
             }, 100);
         } else {
-            car.style.transition = `top 0.4s, left 0.4s, transform 0.1s`;
+            car.style.transition = `top 0.5s, left 0.5s, transform 0.1s`;
             deg = 270;
             car.style.transform = `rotate(${deg}deg)`;
         }
@@ -54,45 +58,53 @@ function rideLeft() {
         if (positionX > 0) {
             positionX -= 80;
             document.documentElement.style.setProperty(`--positionX`, positionX + suffix);
+            if (positionY === deliverCords.posY && positionX === deliverCords.posX) {
+                console.log('winner');
+                window.removeEventListener("keydown", addKeys);
+            };
         };
     };
 };
 
 function rideDown() {
     let cordsY = homesCords.some(function(home) {
-        return positionX === home.posX && positionY + 80 === home.posY;
+        return positionX === home.posX && positionY + 80 === home.posY && !(positionX === deliverCords.posX && positionY + 80 === deliverCords.posY);
     });
     if (cordsY) {
             positionY;
         } else {
-            car.style.transition = `top 0.4s, left 0.4s, transform 0.1s`;
+            car.style.transition = `top 0.5s, left 0.5s, transform 0.1s`;
             deg = 180;
             car.style.transform = `rotate(${deg}deg)`;
             positionY = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionY`).slice(0, -2));
             if (positionY < 640) {
                 positionY += 80;
                 document.documentElement.style.setProperty(`--positionY`, positionY + suffix);
+                if (positionY === deliverCords.posY && positionX === deliverCords.posX) {
+                    console.log('winner');
+                    window.removeEventListener("keydown", addKeys);
+                };
             };
         };
 };
-
+//positionX === deliverCords.posX && positionY - 80 === deliverCords.posY
 function rideTop() {
     let cordsY = homesCords.some(function(home) {
-        return positionX === home.posX && positionY - 80 === home.posY;
+        return (positionX === home.posX && positionY - 80 === home.posY) && !(positionX === deliverCords.posX && positionY - 80 === deliverCords.posY);
     });
     if (cordsY) {
         positionY;
     } else {
         if (deg === 270) {
-            car.style.transition = `top 0.4s, left 0.4s, transform 0.1s`;
+            car.style.transition = `top 0.5s, left 0.5s, transform 0.1s`;
             deg = 360;
             car.style.transform = `rotate(${deg}deg)`;
         } else if (deg === 360){
-            car.style.transition = `top 0.4s, left 0.4s, transform 0s`;
+            car.style.transition = `top 0.5s, left 0.5s, transform 0s`;
             deg = 0;
             car.style.transform = `rotate(${deg}deg)`;
         } else {
-            car.style.transition = `top 0.4s, left 0.4s, transform 0.1s`;
+            car.style.transition = `top 0.5s, left 0.5s, transform 0.1s`;
             deg = 0;
             car.style.transform = `rotate(${deg}deg)`;
         }
@@ -100,11 +112,15 @@ function rideTop() {
         if (positionY > 0) {
             positionY -= 80;
             document.documentElement.style.setProperty(`--positionY`, positionY + suffix);
+            if (positionY === deliverCords.posY && positionX === deliverCords.posX) {
+                console.log('winner');
+                window.removeEventListener("keydown", addKeys);
+            };
         };
     };
 };
 
-window.addEventListener("keydown", function(e) {
+function addKeys(e) {
     if (e.keyCode === 39) {
         rideRight();
     } else if (e.keyCode === 40) {
@@ -113,8 +129,10 @@ window.addEventListener("keydown", function(e) {
         rideLeft();
     } else if (e.keyCode === 38) {
         rideTop();
-    }
-});
+    };
+};
+
+window.addEventListener("keydown", addKeys);
 
 /*********************************************
                 CREATE HOUSES
@@ -180,13 +198,10 @@ homes.forEach(function(home, i) {
     });
 });
 
-
-let cordsY = homesCords.some(function(home) {
-    return home.posY === positionY;
-});
-
+// Choose house to deliver
 function deliverTo() {
     const index = Math.floor(Math.random() * homes.length);
-    console.log(homes[index]);
+    homes[index].style.background = "red";
+    return homesCords[index];
 };
-deliverTo();
+const deliverCords = deliverTo();
