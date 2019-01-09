@@ -18,6 +18,7 @@ function rideRight() {
     });
     if (cordsX) {
             positionX;
+            console.log("wrong way");
         } else {
             car.style.transition = `top 0.5s, left 0.5s, transform 0.1s`;
             deg = 90;
@@ -40,6 +41,7 @@ function rideLeft() {
     });
     if (cordsX) {
         positionX;
+        console.log("wrong way");
     } else {
         if (deg === 0) {
             car.style.transition = `top 0.5s, left 0.5s, transform 0.1s`;
@@ -72,6 +74,7 @@ function rideDown() {
     });
     if (cordsY) {
             positionY;
+            console.log("wrong way");
         } else {
             car.style.transition = `top 0.5s, left 0.5s, transform 0.1s`;
             deg = 180;
@@ -94,6 +97,7 @@ function rideTop() {
     });
     if (cordsY) {
         positionY;
+        console.log("wrong way");
     } else {
         if (deg === 270) {
             car.style.transition = `top 0.5s, left 0.5s, transform 0.1s`;

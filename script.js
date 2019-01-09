@@ -3,8 +3,18 @@
 *********************************************/
 
 const body = document.querySelector("body");
-const pizzaContainer = document.querySelector(".container");
-const box = document.getElementById("box");
+
+const pizzaContainer = document.createElement("div");
+pizzaContainer.classList.add("container");
+body.prepend(pizzaContainer);
+
+const box = document.createElement("div");
+box.classList.add("box");
+box.textContent = "🌳";
+pizzaContainer.prepend(box);
+
+// const pizzaContainer = document.querySelector(".container");
+// const box = document.getElementById("box");
 const toDisplay = 20; // level of hardness (how many random element without element fo find)
 let displayAnimals = [];
 let elementsToFind = []; // array of items to find
@@ -71,9 +81,6 @@ function createAnimals() {
     });
 };
 
-createAnimals();
-console.log(elementsToFind);
-
 function findElement() {
     const that = this;
     // find element by it's id 
@@ -88,7 +95,7 @@ function findElement() {
         console.log('to find: ', elementsToFind);
         // If every element found then you WIN
         if (elementsToFind.length === 0) {
-            console.log(`%c WINNER`, `font-size: 3rem; color: darkgreen`);
+            console.log(`%c WINNER`, `font-size: 4rem; color: darkgreen`);
             allAnimals.forEach(removeFindingEvent);
             setTimeout(function() {
                 pizzaContainer.remove();
@@ -136,11 +143,9 @@ function removeFindingEvent(element) {
     element.removeEventListener('click', findElement);
 };
 
+createAnimals();
+console.log(elementsToFind);
+
 /****************************************
             DELIVER GAME
 *****************************************/
-
-let deliverContainer;
-const car = document.createElement("div");
-
-car.classList.add("car");

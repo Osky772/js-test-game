@@ -22,7 +22,7 @@ html, body {
     overflow: hidden;
 }
 
-#box {
+.box {
     font-size: 12rem;
     position: relative;
 }
