@@ -173,10 +173,10 @@
     };
     
     createColumn(80,560,0);
-    createRow(160,800,0);
+    createRow(160,720,0);
     createColumn(0,640,1040);
     createColumn(0,240,800);
-    createRow(160, 640, 160);
+    createRow(160, 560, 160);
     createColumn(240,240,160);
     createRow(160,320,400);
     createRow(320,480,320);
