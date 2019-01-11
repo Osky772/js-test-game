@@ -104,4 +104,9 @@ html, body {
     transform: rotate(90deg);
 }
 
+.deliver {
+    background: red;
+    border: 1px solid green;
+}
+
 

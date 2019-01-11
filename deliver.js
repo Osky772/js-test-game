@@ -142,7 +142,6 @@
     /*********************************************
                     CREATE HOUSES
     **********************************************/
-    
     let posY = 0;
     let posX = 0;
     let width = 0;
@@ -180,7 +179,6 @@
     createRow(160, 640, 160);
     createColumn(240,240,160);
     createRow(160,320,400);
-    createColumn(320,320,320);
     createRow(320,480,320);
     createColumn(160,320,640);
     createRow(720,880,480);
@@ -206,10 +204,11 @@
     // Choose house to deliver
     function deliverTo() {
         const index = Math.floor(Math.random() * homes.length);
-        homes[index].style.background = "red";
+        homes[index].classList.add("deliver");
+        console.log(homesCords[index]);
         return homesCords[index];
     };
     const deliverCords = deliverTo();
-    
+    console.log(homes)
 }());
 
