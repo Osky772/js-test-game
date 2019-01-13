@@ -11,15 +11,18 @@
     const suffix = car.dataset.px;
     deliverContainer.prepend(car);
     
+    // Starting position and rotate of car 
     let deg = 90;
     let carPositionY = 0;
     let carPositionX = 0;
     
     const totalWidth = Number(getComputedStyle(deliverContainer).getPropertyValue("width").slice(0, -2));
     const totalHeight = Number(getComputedStyle(deliverContainer).getPropertyValue("height").slice(0, -2));
+    console.log(totalHeight)
     
     function rideRight() {
         let cordsX = homesCords.some(function(home) {
+            // check if car position would be the same as any home's position and would not be equal to deliver home cords
             return carPositionX + 80 === home.posX && carPositionY === home.posY && !(carPositionX + 80 === deliverCords.posX && carPositionY === deliverCords.posY);
         });
         if (cordsX) {
@@ -86,7 +89,7 @@
                 deg = 180;
                 car.style.transform = `rotate(${deg}deg)`;
                 carPositionY = Number(getComputedStyle(document.documentElement).getPropertyValue(`--carPositionY`).slice(0, -2));
-                if (carPositionY < totalHeight) {
+                if (carPositionY + 80 < totalHeight) {
                     carPositionY += 80;
                     document.documentElement.style.setProperty(`--carPositionY`, carPositionY + suffix);
                     if (carPositionY === deliverCords.posY && carPositionX === deliverCords.posX) {
@@ -147,12 +150,6 @@
     /*********************************************
                     CREATE HOUSES
     **********************************************/
-    let posY = 0;
-    let posX = 0;
-    let width = 0;
-    let height  = 0;
-    
-    
     
     function createRow(startX, endX, startY) {
         for (let x = startX; x <= endX; x += 80) {
@@ -194,9 +191,12 @@
     createColumn(560,640,160);
     createRow(240,320,560);
     
+    // Add to every home element class "home"
     const homes = document.querySelectorAll(".home");
+    // Create empty array for every home's cords (left, top) values
     let homesCords = [];
     
+    // For every homes elements push object with it's index and position
     homes.forEach(function(home, i) {
         homesCords.push({
             home: i,
@@ -211,6 +211,7 @@
         homes[index].classList.add("deliver");
         return homesCords[index];
     };
+    // Then I refer to that cords when car is driving (above in code)
     const deliverCords = deliverTo();
 }());
 

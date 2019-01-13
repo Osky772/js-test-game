@@ -13,8 +13,6 @@ box.classList.add("box");
 box.textContent = "🌳";
 pizzaContainer.prepend(box);
 
-// const pizzaContainer = document.querySelector(".container");
-// const box = document.getElementById("box");
 const toDisplay = 20; // level of hardness (how many random element without element fo find)
 let displayAnimals = [];
 let elementsToFind = []; // array of items to find
@@ -86,6 +84,7 @@ function findElement() {
     // find element by it's id 
      const isFound = elementsToFind.some((element) => element === that.dataset.id);
     // if you found item then remove it
+
     if (isFound) {
         // remove element from array
         const found = elementsToFind.findIndex(el => el === that.dataset.id)
@@ -93,6 +92,7 @@ function findElement() {
         that.style.cssText = `left: calc(${getRandomInt(40, 52)}%); top: calc(${getRandomInt(39, 50)}%); animation: linear;`;
         that.removeEventListener('click', findElement);
         console.log('to find: ', elementsToFind);
+        
         // If every element found then you WIN
         if (elementsToFind.length === 0) {
             console.log(`%c WINNER`, `font-size: 4rem; color: darkgreen`);
@@ -120,6 +120,7 @@ function findElement() {
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
+
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
@@ -128,6 +129,7 @@ function topLeftRandom() {
     for (let i = 0; random > 37 && random < 55; i++) {
         random = getRandomInt(0, 90);
     };
+
     return `${random}%`;
 };
 
@@ -145,7 +147,3 @@ function removeFindingEvent(element) {
 
 createAnimals();
 console.log(elementsToFind);
-
-/****************************************
-            DELIVER GAME
-*****************************************/
