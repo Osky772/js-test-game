@@ -67,8 +67,8 @@ html, body {
 **********************************/
 
 :root {
-    --positionX: 0px;
-    --positionY: 0px;
+    --carPositionX: 0px;
+    --carPositionY: 0px;
 }
 
 .deliver-map {
@@ -96,8 +96,8 @@ html, body {
     background-position: center;
     background-repeat: no-repeat;
     position: absolute;
-    top: var(--positionY);
-    left: var(--positionX);
+    top: var(--carPositionY);
+    left: var(--carPositionX);
     width: 80px;
     height: 80px;
     transition: top 0.5s, left 0.5s, transform 0.1s;

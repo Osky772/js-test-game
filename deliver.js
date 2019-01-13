@@ -1,7 +1,10 @@
 (function(){
     const body = document.querySelector("body");
-    const deliverContainer = document.querySelector(".deliver-map");
     
+    const deliverContainer = document.createElement("div")
+    deliverContainer.classList.add("deliver-map");
+    body.prepend(deliverContainer);
+
     const car = document.createElement("div");
     car.classList.add("car");
     car.dataset.px = 'px';
@@ -9,26 +12,28 @@
     deliverContainer.prepend(car);
     
     let deg = 90;
-    let positionY = 0;
-    let positionX = 0;
+    let carPositionY = 0;
+    let carPositionX = 0;
     
+    const totalWidth = Number(getComputedStyle(deliverContainer).getPropertyValue("width").slice(0, -2));
+    const totalHeight = Number(getComputedStyle(deliverContainer).getPropertyValue("height").slice(0, -2));
     
     function rideRight() {
         let cordsX = homesCords.some(function(home) {
-            return positionX + 80 === home.posX && positionY === home.posY && !(positionX + 80 === deliverCords.posX && positionY === deliverCords.posY);
+            return carPositionX + 80 === home.posX && carPositionY === home.posY && !(carPositionX + 80 === deliverCords.posX && carPositionY === deliverCords.posY);
         });
         if (cordsX) {
-                positionX;
+                carPositionX;
                 console.log("wrong way");
             } else {
                 car.style.transition = `top 0.5s, left 0.5s, transform 0.1s`;
                 deg = 90;
                 car.style.transform = `rotate(${deg}deg)`;
-                positionX = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionX`).slice(0, -2));
-                if (positionX < 1040) {
-                    positionX += 80;
-                    document.documentElement.style.setProperty(`--positionX`, positionX + suffix);
-                    if (positionY === deliverCords.posY && positionX === deliverCords.posX) {
+                carPositionX = Number(getComputedStyle(document.documentElement).getPropertyValue(`--carPositionX`).slice(0, -2));
+                if (carPositionX < totalWidth) {
+                    carPositionX += 80;
+                    document.documentElement.style.setProperty(`--carPositionX`, carPositionX + suffix);
+                    if (carPositionY === deliverCords.posY && carPositionX === deliverCords.posX) {
                         console.log('winner');
                         window.removeEventListener("keydown", addKeys);
                     };
@@ -38,10 +43,10 @@
     
     function rideLeft() {
         let cordsX = homesCords.some(function(home) {
-            return positionX - 80 === home.posX && positionY === home.posY && !(positionX - 80 === deliverCords.posX && positionY === deliverCords.posY);
+            return carPositionX - 80 === home.posX && carPositionY === home.posY && !(carPositionX - 80 === deliverCords.posX && carPositionY === deliverCords.posY);
         });
         if (cordsX) {
-            positionX;
+            carPositionX;
             console.log("wrong way");
         } else {
             if (deg === 0) {
@@ -57,11 +62,11 @@
                 deg = 270;
                 car.style.transform = `rotate(${deg}deg)`;
             }
-            positionX = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionX`).slice(0, -2));
-            if (positionX > 0) {
-                positionX -= 80;
-                document.documentElement.style.setProperty(`--positionX`, positionX + suffix);
-                if (positionY === deliverCords.posY && positionX === deliverCords.posX) {
+            carPositionX = Number(getComputedStyle(document.documentElement).getPropertyValue(`--carPositionX`).slice(0, -2));
+            if (carPositionX > 0) {
+                carPositionX -= 80;
+                document.documentElement.style.setProperty(`--carPositionX`, carPositionX + suffix);
+                if (carPositionY === deliverCords.posY && carPositionX === deliverCords.posX) {
                     console.log('winner');
                     window.removeEventListener("keydown", addKeys);
                 };
@@ -71,33 +76,33 @@
     
     function rideDown() {
         let cordsY = homesCords.some(function(home) {
-            return positionX === home.posX && positionY + 80 === home.posY && !(positionX === deliverCords.posX && positionY + 80 === deliverCords.posY);
+            return carPositionX === home.posX && carPositionY + 80 === home.posY && !(carPositionX === deliverCords.posX && carPositionY + 80 === deliverCords.posY);
         });
         if (cordsY) {
-                positionY;
+                carPositionY;
                 console.log("wrong way");
             } else {
                 car.style.transition = `top 0.5s, left 0.5s, transform 0.1s`;
                 deg = 180;
                 car.style.transform = `rotate(${deg}deg)`;
-                positionY = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionY`).slice(0, -2));
-                if (positionY < 640) {
-                    positionY += 80;
-                    document.documentElement.style.setProperty(`--positionY`, positionY + suffix);
-                    if (positionY === deliverCords.posY && positionX === deliverCords.posX) {
+                carPositionY = Number(getComputedStyle(document.documentElement).getPropertyValue(`--carPositionY`).slice(0, -2));
+                if (carPositionY < totalHeight) {
+                    carPositionY += 80;
+                    document.documentElement.style.setProperty(`--carPositionY`, carPositionY + suffix);
+                    if (carPositionY === deliverCords.posY && carPositionX === deliverCords.posX) {
                         console.log('winner');
                         window.removeEventListener("keydown", addKeys);
                     };
                 };
             };
     };
-    //positionX === deliverCords.posX && positionY - 80 === deliverCords.posY
+    
     function rideTop() {
         let cordsY = homesCords.some(function(home) {
-            return (positionX === home.posX && positionY - 80 === home.posY) && !(positionX === deliverCords.posX && positionY - 80 === deliverCords.posY);
+            return (carPositionX === home.posX && carPositionY - 80 === home.posY) && !(carPositionX === deliverCords.posX && carPositionY - 80 === deliverCords.posY);
         });
         if (cordsY) {
-            positionY;
+            carPositionY;
             console.log("wrong way");
         } else {
             if (deg === 270) {
@@ -113,11 +118,11 @@
                 deg = 0;
                 car.style.transform = `rotate(${deg}deg)`;
             }
-            positionY = Number(getComputedStyle(document.documentElement).getPropertyValue(`--positionY`).slice(0, -2));
-            if (positionY > 0) {
-                positionY -= 80;
-                document.documentElement.style.setProperty(`--positionY`, positionY + suffix);
-                if (positionY === deliverCords.posY && positionX === deliverCords.posX) {
+            carPositionY = Number(getComputedStyle(document.documentElement).getPropertyValue(`--carPositionY`).slice(0, -2));
+            if (carPositionY > 0) {
+                carPositionY -= 80;
+                document.documentElement.style.setProperty(`--carPositionY`, carPositionY + suffix);
+                if (carPositionY === deliverCords.posY && carPositionX === deliverCords.posX) {
                     console.log('winner');
                     window.removeEventListener("keydown", addKeys);
                 };
@@ -147,8 +152,7 @@
     let width = 0;
     let height  = 0;
     
-    const totalWidth = Number(getComputedStyle(deliverContainer).getPropertyValue("width").slice(0, -2));
-    const totalHeight = Number(getComputedStyle(deliverContainer).getPropertyValue("height").slice(0, -2));
+    
     
     function createRow(startX, endX, startY) {
         for (let x = startX; x <= endX; x += 80) {
@@ -205,10 +209,8 @@
     function deliverTo() {
         const index = Math.floor(Math.random() * homes.length);
         homes[index].classList.add("deliver");
-        console.log(homesCords[index]);
         return homesCords[index];
     };
     const deliverCords = deliverTo();
-    console.log(homes)
 }());
 
